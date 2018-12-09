@@ -11,8 +11,7 @@
     <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBar"
             android:layout_width="match_parent"
-            android:layout_height="340dp"
-            android:visibility="gone"
+            android:layout_height="220dp"
             app:layout_behavior="br.com.luan2.lgutilsk.utils.extras.FixAppBarLayoutBehavior"
             app:title=" ">
 
@@ -21,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
-                app:contentScrim="#1f272f"
+                app:contentScrim="#fff"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:title=" "
                 android:background="@drawable/bg_wood"
@@ -45,44 +44,69 @@
                     app:layout_collapseMode="pin"
                     app:layout_scrollFlags="scroll|enterAlways"
                     app:navigationIcon="@drawable/ic_left_arrow"
-                    app:title="Detalhes"
                     app:titleTextColor="#fff" />
-        </com.google.android.material.appbar.CollapsingToolbarLayout>>
-
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
+
 
     <androidx.core.widget.NestedScrollView
             android:id="@+id/nested"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fillViewport="true"
-            android:visibility="gone"
+            android:layout_marginBottom="50dp"
+            android:visibility="visible"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-        <TextView
-                android:id="@+id/ingredientsLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="Ingredientes"
-                android:textColor="#000"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent" />
+        <RelativeLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listIngredientes"
+
+            <TextView
+                    android:id="@+id/ingredientsLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="Ingredientes"
+                    android:textColor="#000"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listIngredientes"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:layout_below="@+id/ingredientsLabel"/>
+
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:id="@+id/addToCart"
+            android:layout_height="50dp"
+            android:background="#FFCD2B">
+
+        <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                />
+                android:layout_centerInParent="true"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:gravity="center"
+                android:id="@+id/addCartText"
+                android:textColor="#ffffff"/>
 
-
-
-    </androidx.core.widget.NestedScrollView>
+    </RelativeLayout>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

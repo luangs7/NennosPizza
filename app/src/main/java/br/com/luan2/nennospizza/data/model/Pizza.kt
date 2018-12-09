@@ -4,9 +4,10 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 @Entity(tableName = "Pizza")
-open class Pizza : ItemCart {
+open class Pizza : ItemCart, Serializable {
     @SerializedName("name")
     override var name: String = ""
 
@@ -34,6 +35,8 @@ open class Pizza : ItemCart {
 
     @Ignore
     override var type: CartType = CartType.PIZZA
+
+    var ingredientsJson : String = ""
 
     fun putIngredientsObj(list: List<Ingredients>) {
         this.ingredientsObj = list

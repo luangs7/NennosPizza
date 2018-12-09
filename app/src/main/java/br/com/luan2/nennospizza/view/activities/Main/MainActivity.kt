@@ -1,6 +1,7 @@
 package br.com.luan2.nennospizza.view.activities.main
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +13,7 @@ import br.com.luan2.nennospizza.R
 import br.com.luan2.nennospizza.data.model.Pizza
 import br.com.luan2.nennospizza.view.activities.BaseActivity
 import br.com.luan2.nennospizza.view.activities.cart.CartActivityContract
+import br.com.luan2.nennospizza.view.activities.pizzadetails.PizzaDetailsActivity
 import com.example.gitapi.adapter.OnClickPizza
 import com.example.gitapi.adapter.PizzaAdapter
 import com.google.android.material.snackbar.Snackbar
@@ -76,6 +78,12 @@ class MainActivity : BaseActivity(), MainActivityContract.View, OnClickPizza {
                 showError(error)
             }
         })
+    }
+
+    override fun onItemDetails(pizza: Pizza) {
+        val intent = Intent(this@MainActivity, PizzaDetailsActivity::class.java)
+        intent.putExtra("pizza",pizza)
+        startActivity(intent)
     }
 
 

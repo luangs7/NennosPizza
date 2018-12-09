@@ -50,6 +50,7 @@ class PizzaRepository(val rxThread: RxThread, val api: ParseAPI) {
         pizzaResponse.pizzas.map {
             val pizza = it
             pizza.putIngredientsObj(ingredients.filter { it.id in pizza.ingredients })
+            pizza.ingredientsJson = Gson().toJson(pizza.ingredients)
         }
         return pizzaResponse
     }

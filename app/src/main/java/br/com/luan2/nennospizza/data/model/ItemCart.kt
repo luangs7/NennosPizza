@@ -1,5 +1,7 @@
 package br.com.luan2.nennospizza.data.model
 
+import java.io.Serializable
+
 interface ItemCart{
     var id: Int
     var idCart: Int
@@ -8,7 +10,7 @@ interface ItemCart{
     var type: CartType
 }
 
-enum class CartType{
+enum class CartType : Serializable{
     DRINK,
     PIZZA
 }

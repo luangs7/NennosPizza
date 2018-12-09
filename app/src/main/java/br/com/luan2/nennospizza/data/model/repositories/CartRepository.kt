@@ -24,6 +24,7 @@ class CartRepository(val dao: CartDao, val api: ParseAPI, val rxThread: RxThread
         val subscription = CompositeDisposable()
         val checkout = Checkout()
 
+        cart.deserialize()
         checkout.drinks = cart.drinks.map { it.id }
         checkout.pizzas = cart.pizzas
 

@@ -3,6 +3,7 @@ package br.com.luan2.nennospizza.data.model
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.google.gson.Gson
 
 @Entity(tableName = "CartTable")
 data class Cart(
@@ -19,4 +20,9 @@ data class Cart(
 
     var totalPrice : Double = 0.0
         get() = if(items.isEmpty()) 0.0 else this.items.map(ItemCart::price).reduce{acc: Double, d: Double -> acc + d }
+
+
+    fun deserialize(){
+        pizzas.forEach { it.ingredients = Gson().fromJson(it.ingredientsJson,Array<Int>::class.java).toList() }
+    }
 }

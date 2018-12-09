@@ -4,6 +4,7 @@ package com.example.gitapi.adapter
 import android.content.Context
 import android.view.View
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.luan2.nennospizza.R
@@ -13,16 +14,17 @@ import kotlin.math.roundToInt
 
 class CartViewHolder(view: View, val context: Context) : RecyclerView.ViewHolder(view) {
 
-    val nameDrink by lazy { view.findViewById(R.id.nameDrink) as TextView }
-    val add by lazy { view.findViewById(R.id.add) as ImageView }
+    val name by lazy { view.findViewById(R.id.nameIngredient) as TextView }
+    val delete by lazy { view.findViewById(R.id.delete) as ImageView }
     val price by lazy { view.findViewById(R.id.price) as TextView }
+    val item by lazy { view.findViewById(R.id.item) as RelativeLayout }
 
     fun bind(item: ItemCart, onItemClicked: OnCartItem, position:Int) {
 
-        nameDrink.text = item.name
+        name.text = item.name
         price.text = "$ ${item.price.roundToInt()}"
 
-        add.setOnClickListener { onItemClicked.onItemDelete(item,position) }
+        delete.setOnClickListener { onItemClicked.onItemDelete(item,position) }
 
     }
 }
