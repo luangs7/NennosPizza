@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.activities.Main.MainActivity">
+        tools:context=".view.activities.main.MainActivity">
 
 
     <androidx.appcompat.widget.Toolbar
@@ -33,12 +33,48 @@
             android:layout_below="@id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/cartList"/>
+            android:id="@+id/cartList" android:layout_above="@+id/totalView"/>
 
+
+    <RelativeLayout android:layout_width="match_parent"
+                    android:id="@+id/totalView"
+                    android:elevation="2dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_above="@+id/checkoutButton">
+
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:text="TOTAL"
+                android:id="@+id/total"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:gravity="center"
+                android:textColor="#000" android:layout_alignParentStart="true" android:layout_centerVertical="true"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="16dp"
+                android:layout_margin="16dp"
+                android:id="@+id/totalLabel"
+                android:gravity="right"
+                android:textColor="#000"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@+id/total"/>
+
+
+    </RelativeLayout>
 
     <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:id="@+id/checkoutButton"
             android:layout_alignParentBottom="true"
             android:background="#E14D45">
 

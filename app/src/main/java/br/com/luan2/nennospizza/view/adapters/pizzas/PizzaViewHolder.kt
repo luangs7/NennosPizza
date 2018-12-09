@@ -10,6 +10,7 @@ import br.com.luan2.lgutilsk.utils.loadPlaceholder
 import br.com.luan2.nennospizza.R
 import br.com.luan2.nennospizza.data.model.Pizza
 import com.bumptech.glide.Glide
+import kotlin.math.roundToInt
 
 class PizzaViewHolder(view: View,val context: Context) : RecyclerView.ViewHolder(view) {
 
@@ -27,7 +28,7 @@ class PizzaViewHolder(view: View,val context: Context) : RecyclerView.ViewHolder
 
         pizzaName.text = item.name
         ingredients.text = item.ingredientNames
-        price.text = "$ ${item.totalPrice}"
+        price.text = "$${item.price.roundToInt()}"
 
         price.setOnClickListener { clickPizza.onItemToCart(item) }
 

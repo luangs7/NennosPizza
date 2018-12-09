@@ -2,13 +2,15 @@ package br.com.luan2.nennospizza.view.activities.cart
 
 import android.app.Activity
 import br.com.luan2.nennospizza.data.model.Cart
+import br.com.luan2.nennospizza.data.model.ItemCart
 
 interface CartActivityContract {
 
     interface Presenter{
         fun getCart()
         fun provideView(view: View, activity: Activity)
-        fun doCheckout()
+        fun doCheckout(cart: Cart,listener: CartActivityContract.Interactor.CartCheckout)
+        fun deleteItem(itemCart: ItemCart, listener:CartActivityContract.Interactor.CartItemDelete)
     }
 
 
@@ -32,6 +34,23 @@ interface CartActivityContract {
             fun onCartItemError(error: String)
         }
 
-        fun getCartCache(listener: CarCacheInfo)
+        interface CartInit{
+            fun onCartInitSave(cart: Cart)
+            fun onCartInitError(error: String)
+        }
+
+        interface CartItemDelete{
+            fun onCartItemDeleteSuccess()
+            fun onCartItemDeleteError(error: String)
+        }
+
+        interface CartCheckout{
+            fun onCheckoutSuccess()
+            fun onCheckoutFailure(error: String)
+        }
+
+        fun checkoutResponse(cart: Cart,listener: CartCheckout)
+        fun getCartCache(context :Activity,listener: CarCacheInfo)
+        fun deleteItem(itemCart: ItemCart, listener:CartActivityContract.Interactor.CartItemDelete)
     }
 }

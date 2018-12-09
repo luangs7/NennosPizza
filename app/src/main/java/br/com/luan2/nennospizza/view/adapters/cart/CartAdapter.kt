@@ -20,7 +20,7 @@ class CartAdapter constructor(private val items: List<ItemCart>,
 
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
         val repository = items[position]
-        holder.bind(repository, onItemClicked)
+        holder.bind(repository, onItemClicked, position)
     }
 
     override fun getItemCount(): Int = items.size

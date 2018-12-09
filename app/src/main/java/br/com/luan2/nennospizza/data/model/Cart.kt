@@ -3,7 +3,6 @@ package br.com.luan2.nennospizza.data.model
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import com.google.gson.Gson
 
 @Entity(tableName = "CartTable")
 data class Cart(
@@ -12,22 +11,8 @@ data class Cart(
     @Ignore
     var drinks: ArrayList<Drinks> = ArrayList(),
     @Ignore
-    var pizzas: ArrayList<Pizza> = ArrayList(),
-    var cartJson:String = "",
-    var priceTotal:Double = 0.0
+    var pizzas: ArrayList<Pizza> = ArrayList()
 ) {
-    fun addPizza(itemCart: Pizza) {
-       this.pizzas.add(itemCart)
-        this.cartJson = Gson().toJson(this)
-    }
-
-    fun addDrink(itemCart: Drinks) {
-        this.drinks.add(itemCart)
-        this.cartJson = Gson().toJson(this)
-    }
-    fun deserialize():Cart{
-        return Gson().fromJson(cartJson,Cart::class.java)
-    }
 
     val items: List<ItemCart>
        get() = pizzas + drinks

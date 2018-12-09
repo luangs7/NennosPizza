@@ -1,4 +1,4 @@
-package br.com.luan2.nennospizza.view.activities.Main
+package br.com.luan2.nennospizza.view.activities.main
 
 import android.app.Activity
 import br.com.luan2.lgutilsk.utils.startActivity
@@ -32,6 +32,8 @@ class MainActivityPresenter(val interactor:MainActivityInteractor): MainActivity
                 interactor.getPizzaCache(object : MainActivityContract.Interactor.PizzaCacheInfo{
                     override fun onCachetSuccess(pizzaResponse: PizzaResponse) {
                         view.showSuccess(pizzaResponse.pizzas)
+                        view.hideProgress()
+
                     }
 
                     override fun onCacheError(error: String) {
@@ -48,7 +50,7 @@ class MainActivityPresenter(val interactor:MainActivityInteractor): MainActivity
     }
 
     override fun putCart(pizza: Pizza,listener: CartActivityContract.Interactor.CartSaveItem) {
-        interactor.cartRepository.addItem(pizza,listener)
+        interactor.setItemToCart(pizza,listener)
     }
 
     override fun goToCart() {

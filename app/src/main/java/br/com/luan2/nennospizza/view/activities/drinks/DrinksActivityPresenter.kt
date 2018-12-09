@@ -1,9 +1,10 @@
 package br.com.luan2.nennospizza.view.activities.drinks
 
 import android.app.Activity
+import br.com.luan2.nennospizza.data.model.Cart
 import br.com.luan2.nennospizza.data.model.Drinks
-import br.com.luan2.nennospizza.data.model.ItemCart
 import br.com.luan2.nennospizza.view.activities.cart.CartActivityContract
+import br.com.squarebits.ninky.data.dao.LocalDbImplement
 
 class DrinksActivityPresenter(val interactor: DrinksActivityInteractor) : DrinksActivityContract.Presenter {
 
@@ -21,13 +22,13 @@ class DrinksActivityPresenter(val interactor: DrinksActivityInteractor) : Drinks
 
     override fun getDrinks() {
         view.showProgress()
-        interactor.getDrinkCache(object : DrinksActivityContract.Interactor.DrinkCacheInfo{
-            override fun onCachetSuccess(drinks: List<Drinks>) {
+        interactor.getDrinkRequest(object : DrinksActivityContract.Interactor.DrinkRequestInfo{
+            override fun onRequestSuccess(drinks: List<Drinks>) {
                 view.showSuccess(drinks)
                 view.hideProgress()
             }
 
-            override fun onCacheError(error: String) {
+            override fun onRequestError(error: String) {
                 interactor.getDrinkCache(object : DrinksActivityContract.Interactor.DrinkCacheInfo{
                     override fun onCachetSuccess(drinks: List<Drinks>) {
                         view.showSuccess(drinks)
@@ -43,6 +44,8 @@ class DrinksActivityPresenter(val interactor: DrinksActivityInteractor) : Drinks
     }
 
     override fun putCart( itemCart: Drinks, listener: CartActivityContract.Interactor.CartSaveItem) {
+        val cart = LocalDbImplement<Cart>(activity).getDefault(Cart::class.java)
+        cart?.let {  itemCart.idCart = it.id }
         interactor.setItemToCart(itemCart,listener)
     }
 

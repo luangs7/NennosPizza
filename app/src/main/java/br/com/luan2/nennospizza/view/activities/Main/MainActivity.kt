@@ -1,4 +1,4 @@
-package br.com.luan2.nennospizza.view.activities.Main
+package br.com.luan2.nennospizza.view.activities.main
 
 import android.app.Activity
 import android.os.Bundle

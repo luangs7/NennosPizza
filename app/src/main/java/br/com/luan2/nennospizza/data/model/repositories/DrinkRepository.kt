@@ -1,4 +1,4 @@
-package br.com.luan2.nennospizza.retrofit.repositories
+package br.com.luan2.nennospizza.data.model.repositories
 
 import android.app.Activity
 import br.com.luan2.lgutilsk.utils.debug
@@ -6,8 +6,8 @@ import br.com.luan2.nennospizza.data.model.Drinks
 import br.com.luan2.nennospizza.retrofit.CallbackWrapper
 import br.com.luan2.nennospizza.retrofit.ParseAPI
 import br.com.luan2.nennospizza.rx.RxThread
-import br.com.luan2.nennospizza.view.activities.Main.getListFromAssets
 import br.com.luan2.nennospizza.view.activities.drinks.DrinksActivityContract
+import br.com.luan2.nennospizza.view.activities.main.getListFromAssets
 import com.google.gson.Gson
 import io.reactivex.disposables.CompositeDisposable
 

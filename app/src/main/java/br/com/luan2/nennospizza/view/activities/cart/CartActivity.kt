@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.luan2.lgutilsk.utils.createSnackProgress
 import br.com.luan2.lgutilsk.utils.dismissSnackProgress
 import br.com.luan2.lgutilsk.utils.showError
+import br.com.luan2.lgutilsk.utils.showMessage
 import br.com.luan2.nennospizza.R
 import br.com.luan2.nennospizza.data.model.Cart
 import br.com.luan2.nennospizza.data.model.ItemCart
@@ -17,7 +18,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_cart.*
 import org.koin.android.ext.android.inject
 
-class CartActivity : BaseActivity(), CartActivityContract.View, OnCartItem {
+class CartActivity : BaseActivity(), CartActivityContract.View, OnCartItem,CartActivityContract.Interactor.CartCheckout {
 
     val presenter : CartActivityPresenter by inject()
 
@@ -43,14 +44,22 @@ class CartActivity : BaseActivity(), CartActivityContract.View, OnCartItem {
         presenter.getCart()
     }
 
+    override fun onRestart() {
+        super.onRestart()
+        presenter.getCart()
+    }
+
     override fun onError(error: String) {
         showError(error)
     }
 
     override fun showSuccess(cart: Cart) {
-        val nCart = cart.deserialize()
-        adapter = CartAdapter(nCart.items,this,this).also {
+        adapter = CartAdapter(cart.items,this,this).also {
             cartList.adapter = it
+            totalLabel.text = "$${cart.totalPrice}"
+
+            checkoutButton.setOnClickListener { presenter.doCheckout(cart,this) }
+
         }
     }
 
@@ -70,7 +79,27 @@ class CartActivity : BaseActivity(), CartActivityContract.View, OnCartItem {
         return true
     }
 
-    override fun onItemDelete(itemCart: ItemCart) {
+    override fun onItemDelete(itemCart: ItemCart, position:Int) {
+        presenter.deleteItem(itemCart,object : CartActivityContract.Interactor.CartItemDelete{
+            override fun onCartItemDeleteSuccess() {
+                presenter.getCart()
+            }
+
+            override fun onCartItemDeleteError(error: String) {
+
+            }
+        })
+    }
+
+
+    /**
+     * Checkout
+     */
+    override fun onCheckoutSuccess() {
+        showMessage("Success")
+    }
+
+    override fun onCheckoutFailure(error: String) {
 
     }
 }

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.luan2.nennospizza.R
 import br.com.luan2.nennospizza.data.model.ItemCart
 import br.com.luan2.nennospizza.view.adapters.cart.OnCartItem
+import kotlin.math.roundToInt
 
 class CartViewHolder(view: View, val context: Context) : RecyclerView.ViewHolder(view) {
 
@@ -16,12 +17,12 @@ class CartViewHolder(view: View, val context: Context) : RecyclerView.ViewHolder
     val add by lazy { view.findViewById(R.id.add) as ImageView }
     val price by lazy { view.findViewById(R.id.price) as TextView }
 
-    fun bind(item: ItemCart, onItemClicked: OnCartItem) {
+    fun bind(item: ItemCart, onItemClicked: OnCartItem, position:Int) {
 
         nameDrink.text = item.name
-        price.text = "$ ${item.price}"
+        price.text = "$ ${item.price.roundToInt()}"
 
-        add.setOnClickListener { onItemClicked.onItemDelete(item) }
+        add.setOnClickListener { onItemClicked.onItemDelete(item,position) }
 
     }
 }

@@ -2,9 +2,8 @@ package br.com.luan2.nennospizza.view.activities.drinks
 
 import android.app.Activity
 import br.com.luan2.nennospizza.data.model.Drinks
-import br.com.luan2.nennospizza.data.model.ItemCart
-import br.com.luan2.nennospizza.retrofit.repositories.CartRepository
-import br.com.luan2.nennospizza.retrofit.repositories.DrinkRepository
+import br.com.luan2.nennospizza.data.model.repositories.CartRepository
+import br.com.luan2.nennospizza.data.model.repositories.DrinkRepository
 import br.com.luan2.nennospizza.view.activities.cart.CartActivityContract
 
 class DrinksActivityInteractor(val repository: DrinkRepository, val cartRepository: CartRepository) : DrinksActivityContract.Interactor {

@@ -1,24 +1,38 @@
 package br.com.luan2.nennospizza.data.model
 
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-open class Pizza(
+@Entity(tableName = "Pizza")
+open class Pizza : ItemCart {
     @SerializedName("name")
-    override var name: String,
-    override var id: Int,
-    override var price: Double,
+    override var name: String = ""
+
+    @PrimaryKey(autoGenerate = true)
+    override var id: Int = 0
+
+    override var idCart: Int = 0
+
+    override var price: Double = 0.0
 
     @SerializedName("imageUrl")
-    var imageUrl: String?,
+    var imageUrl: String? = ""
+
+    @Ignore
     @SerializedName("ingredients")
-    var ingredients: List<Int>,
+    var ingredients: List<Int> = emptyList()
 
-    var basePrice: Double = 0.0,
-    var totalPrice: Double = 0.0,
-    var ingredientNames: String,
-    var ingredientsObj: List<Ingredients>
+    var basePrice: Double = 0.0
 
-) : ItemCart {
+    @Ignore
+    var ingredientNames: String = ""
+
+    @Ignore
+    var ingredientsObj: List<Ingredients> = emptyList()
+
+    @Ignore
     override var type: CartType = CartType.PIZZA
 
     fun putIngredientsObj(list: List<Ingredients>) {
@@ -26,10 +40,10 @@ open class Pizza(
         ingredientNames = list.map(Ingredients::name).joinToString()
 
         if (ingredientsObj.isEmpty()) {
-            totalPrice = 0.0
+            price = 0.0
         } else {
-            totalPrice = ingredientsObj.map(Ingredients::price).reduce { left, right -> left + right }
+            price = ingredientsObj.map(Ingredients::price).reduce { left, right -> left + right }
         }
-        totalPrice += basePrice
+        price += basePrice
     }
 }
