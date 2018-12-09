@@ -1,6 +1,5 @@
 package br.com.luan2.nennospizza.view.activities.main
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.Menu
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -69,7 +68,7 @@ class MainActivity : BaseActivity(), MainActivityContract.View, OnClickPizza {
     override fun onItemToCart(pizza: Pizza) {
         presenter.putCart(pizza, object : CartActivityContract.Interactor.CartSaveItem {
             override fun onCartItemSave() {
-                showStatusMessage("Add com sucesso",R.color.colorAccent)
+                showStatusMessage("Added to cart",R.color.colorAccent)
             }
 
             override fun onCartItemError(error: String) {

@@ -7,11 +7,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.luan2.lgutilsk.utils.createSnackProgress
 import br.com.luan2.lgutilsk.utils.dismissSnackProgress
 import br.com.luan2.lgutilsk.utils.showStatusError
-import br.com.luan2.lgutilsk.utils.showStatusMessage
+import br.com.luan2.lgutilsk.utils.startActivity
 import br.com.luan2.nennospizza.R
 import br.com.luan2.nennospizza.data.model.Cart
 import br.com.luan2.nennospizza.data.model.ItemCart
 import br.com.luan2.nennospizza.view.activities.BaseActivity
+import br.com.luan2.nennospizza.view.activities.checkout.CheckoutActivity
 import br.com.luan2.nennospizza.view.adapters.cart.OnCartItem
 import com.example.gitapi.adapter.CartAdapter
 import com.google.android.material.snackbar.Snackbar
@@ -96,8 +97,7 @@ class CartActivity : BaseActivity(), CartActivityContract.View, OnCartItem,CartA
      * Checkout
      */
     override fun onCheckoutSuccess() {
-        showStatusMessage("Checkout realizado com sucesso.",R.color.colorAccent)
-        presenter.getCart()
+       startActivity(CheckoutActivity())
     }
 
     override fun onCheckoutFailure(error: String) {

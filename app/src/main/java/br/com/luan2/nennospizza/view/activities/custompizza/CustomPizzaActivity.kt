@@ -2,10 +2,11 @@ package br.com.luan2.nennospizza.view.activities.custompizza
 
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import br.com.luan2.lgutilsk.utils.SNACKBAR_DEFAULT_DURATION
 import br.com.luan2.lgutilsk.utils.createSnackProgress
 import br.com.luan2.lgutilsk.utils.dismissSnackProgress
-import br.com.luan2.lgutilsk.utils.showStatusError
-import br.com.luan2.lgutilsk.utils.showStatusMessage
+import br.com.luan2.lgutilsk.utils.showSnackbar
 import br.com.luan2.nennospizza.R
 import br.com.luan2.nennospizza.data.model.Ingredients
 import br.com.luan2.nennospizza.data.model.Pizza
@@ -15,7 +16,7 @@ import com.bumptech.glide.Glide
 import com.example.gitapi.adapter.IngredienteAdapter
 import com.example.gitapi.adapter.OnIngredienteClick
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_pizza_details.*
+import kotlinx.android.synthetic.main.activity_pizza_custom.*
 import org.koin.android.ext.android.inject
 
 class CustomPizzaActivity : BaseActivity(), CustomPizzaActivityContract.View, OnIngredienteClick, CartActivityContract.Interactor.CartSaveItem {
@@ -30,7 +31,7 @@ class CustomPizzaActivity : BaseActivity(), CustomPizzaActivityContract.View, On
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pizza_details)
+        setContentView(R.layout.activity_pizza_custom)
 
         this.pizza = Pizza()
 
@@ -44,14 +45,21 @@ class CustomPizzaActivity : BaseActivity(), CustomPizzaActivityContract.View, On
         setSupportActionBar(toolbar)
 
         listIngredientes.apply {
-            layoutManager = LinearLayoutManager(this@CustomPizzaActivity)
+            layoutManager = LinearLayoutManager(this@CustomPizzaActivity).also {
+                it.orientation = RecyclerView.VERTICAL
+                it.isAutoMeasureEnabled = true
+
+            }
             setHasFixedSize(true)
         }
 
         Glide.with(this).load(R.drawable.place_holder).into(expandedImage)
 
         addToCart.setOnClickListener {
-            presenter.createPizza(pizza,ingredients)
+            if(pizza.ingredients.count() > 0)
+                presenter.createPizza(pizza,ingredients)
+            else
+                showSnackbar(rootView,"Selecione ao menos 1 sabor", SNACKBAR_DEFAULT_DURATION)
         }
 
         presenter.getIngredientes()
@@ -63,7 +71,7 @@ class CustomPizzaActivity : BaseActivity(), CustomPizzaActivityContract.View, On
     }
 
     override fun onError(error: String) {
-        showStatusError(error,R.color.red)
+        showSnackbar(rootView,error, SNACKBAR_DEFAULT_DURATION)
     }
 
 
@@ -89,11 +97,11 @@ class CustomPizzaActivity : BaseActivity(), CustomPizzaActivityContract.View, On
     }
 
     override fun onCartItemSave() {
-        showStatusMessage("Add com sucesso",R.color.colorAccent)
+        showSnackbar(rootView,"Added to cart", SNACKBAR_DEFAULT_DURATION)
     }
 
     override fun onCartItemError(error: String) {
-        showStatusError(error,R.color.red)
+        showSnackbar(rootView,error, SNACKBAR_DEFAULT_DURATION)
     }
 
     private fun onPizzaShow(ingredients: List<Ingredients>) {

@@ -13,16 +13,9 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@android:color/white"
             android:elevation="4dp"
+            app:title="Bebidas"
+            app:titleTextColor="#E14D45"
             app:navigationIcon="@drawable/ic_left_arrow">
-
-        <TextView android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:titleTextColor="#E14D45"
-                  android:gravity="center|left"
-                  android:textSize="17dp"
-                  android:id="@+id/toolbarText"
-                  android:textStyle="bold"
-        />
 
     </androidx.appcompat.widget.Toolbar>
 

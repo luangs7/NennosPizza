@@ -29,4 +29,5 @@ class IngredienteAdapter constructor(var items: List<Ingredients>,
         notifyDataSetChanged()
     }
 
+
 }

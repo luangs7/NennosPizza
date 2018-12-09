@@ -64,7 +64,7 @@ class DrinksActivity : BaseActivity(), DrinksActivityContract.View, OnClickDrink
     override fun onDrinkToCart(drinks: Drinks) {
         presenter.putCart(drinks,object :CartActivityContract.Interactor.CartSaveItem{
             override fun onCartItemSave() {
-                showStatusMessage("Add com sucesso",R.color.colorAccent)
+                showStatusMessage("Added to cart",R.color.colorAccent)
             }
 
             override fun onCartItemError(error: String) {

@@ -29,6 +29,8 @@
         </activity>
         <activity android:name=".view.activities.pizzadetails.PizzaDetailsActivity">
         </activity>
+        <activity android:name=".view.activities.checkout.CheckoutActivity">
+        </activity>
     </application>
 
 </manifest>

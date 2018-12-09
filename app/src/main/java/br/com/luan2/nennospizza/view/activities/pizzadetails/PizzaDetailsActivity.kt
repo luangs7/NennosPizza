@@ -2,10 +2,10 @@ package br.com.luan2.nennospizza.view.activities.pizzadetails
 
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import br.com.luan2.lgutilsk.utils.SNACKBAR_DEFAULT_DURATION
 import br.com.luan2.lgutilsk.utils.createSnackProgress
 import br.com.luan2.lgutilsk.utils.dismissSnackProgress
-import br.com.luan2.lgutilsk.utils.showStatusError
-import br.com.luan2.lgutilsk.utils.showStatusMessage
+import br.com.luan2.lgutilsk.utils.showSnackbar
 import br.com.luan2.nennospizza.R
 import br.com.luan2.nennospizza.data.model.Ingredients
 import br.com.luan2.nennospizza.data.model.Pizza
@@ -45,12 +45,17 @@ class PizzaDetailsActivity : BaseActivity(), PizzaDetailsActivityContract.View, 
         listIngredientes.apply {
             layoutManager = LinearLayoutManager(this@PizzaDetailsActivity)
             setHasFixedSize(true)
+            isNestedScrollingEnabled = false
         }
 
         pizza.imageUrl?.let { Glide.with(this).load(it).into(expandedImage) }
 
-        addToCart.setOnClickListener { presenter.putCart(pizza,this) }
-
+        addToCart.setOnClickListener {
+            if(pizza.ingredients.count() > 0)
+                presenter.putCart(pizza,this)
+            else
+                showSnackbar(rootView,"Selecione ao menos 1 sabor", SNACKBAR_DEFAULT_DURATION)
+        }
         presenter.getIngredientes()
     }
 
@@ -60,7 +65,7 @@ class PizzaDetailsActivity : BaseActivity(), PizzaDetailsActivityContract.View, 
     }
 
     override fun onError(error: String) {
-        showStatusError(error,R.color.red)
+        showSnackbar(rootView,error, SNACKBAR_DEFAULT_DURATION)
     }
 
 
@@ -81,11 +86,11 @@ class PizzaDetailsActivity : BaseActivity(), PizzaDetailsActivityContract.View, 
     }
 
     override fun onCartItemSave() {
-        showStatusMessage("Add com sucesso",R.color.colorAccent)
+        showSnackbar(rootView,"Added to cart", SNACKBAR_DEFAULT_DURATION)
     }
 
     override fun onCartItemError(error: String) {
-        showStatusError(error,R.color.red)
+        showSnackbar(rootView,error, SNACKBAR_DEFAULT_DURATION)
     }
 
     private fun onPizzaShow(ingredients: List<Ingredients>) {
