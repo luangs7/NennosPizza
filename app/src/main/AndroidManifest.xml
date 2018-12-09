@@ -16,7 +16,7 @@
         </activity>
         <activity android:name=".view.activities.drinks.DrinksActivity">
         </activity>
-        <activity android:name=".view.activities.IngredientsActivity">
+        <activity android:name=".view.activities.custompizza.CustomPizzaActivity">
         </activity>
         <activity android:name=".view.activities.cart.CartActivity">
         </activity>

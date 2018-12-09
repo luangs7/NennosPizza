@@ -1,12 +1,14 @@
 package br.com.luan2.nennospizza.view.activities.main
 
 import android.app.Activity
+import android.content.Intent
 import br.com.luan2.lgutilsk.utils.startActivity
 import br.com.luan2.nennospizza.data.model.Pizza
 import br.com.luan2.nennospizza.data.model.PizzaResponse
-import br.com.luan2.nennospizza.view.activities.IngredientsActivity
 import br.com.luan2.nennospizza.view.activities.cart.CartActivity
 import br.com.luan2.nennospizza.view.activities.cart.CartActivityContract
+import br.com.luan2.nennospizza.view.activities.custompizza.CustomPizzaActivity
+import br.com.luan2.nennospizza.view.activities.pizzadetails.PizzaDetailsActivity
 
 class MainActivityPresenter(val interactor:MainActivityInteractor): MainActivityContract.Presenter {
 
@@ -46,7 +48,9 @@ class MainActivityPresenter(val interactor:MainActivityInteractor): MainActivity
     }
 
     override fun openDetails(pizza: Pizza) {
-        activity.startActivity(IngredientsActivity())
+        val intent = Intent(activity, PizzaDetailsActivity::class.java)
+        intent.putExtra("pizza",pizza)
+        activity.startActivity(intent)
     }
 
     override fun putCart(pizza: Pizza,listener: CartActivityContract.Interactor.CartSaveItem) {
@@ -58,6 +62,6 @@ class MainActivityPresenter(val interactor:MainActivityInteractor): MainActivity
     }
 
     override fun gotToNewPizza() {
-        activity.startActivity(IngredientsActivity())
+        activity.startActivity(CustomPizzaActivity())
     }
 }

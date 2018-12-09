@@ -5,7 +5,7 @@
             android:id="@+id/to_drink"
             android:title="Drinks"
             app:showAsAction="always"
-            android:icon="@drawable/drinks"
+            android:icon="@drawable/ic_drinks"
             />
 
 </menu>

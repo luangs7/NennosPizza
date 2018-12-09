@@ -1,4 +1,4 @@
-package br.com.luan2.nennospizza.view.activities.pizzadetails
+package br.com.luan2.nennospizza.view.activities.custompizza
 
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,38 +18,41 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_pizza_details.*
 import org.koin.android.ext.android.inject
 
-class PizzaDetailsActivity : BaseActivity(), PizzaDetailsActivityContract.View, OnIngredienteClick, CartActivityContract.Interactor.CartSaveItem {
+class CustomPizzaActivity : BaseActivity(), CustomPizzaActivityContract.View, OnIngredienteClick, CartActivityContract.Interactor.CartSaveItem {
 
-    val presenter: PizzaDetailsActivityPresenter by inject()
+    val presenter: CustomPizzaActivityPresenter by inject()
 
     lateinit var snackbar: Snackbar
     lateinit var adapter: IngredienteAdapter
     lateinit var pizza: Pizza
+    lateinit var ingredients: List<Ingredients>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pizza_details)
 
-        this.pizza = intent.getSerializableExtra("pizza") as Pizza
+        this.pizza = Pizza()
 
-        presenter.provideView(this, this)
+        presenter.provideView(pizza,this, this)
 
-        presenter.providePizza(pizza)
     }
+
 
     override fun bindView() {
         toolbar.title = pizza.name
         setSupportActionBar(toolbar)
 
         listIngredientes.apply {
-            layoutManager = LinearLayoutManager(this@PizzaDetailsActivity)
+            layoutManager = LinearLayoutManager(this@CustomPizzaActivity)
             setHasFixedSize(true)
         }
 
-        pizza.imageUrl?.let { Glide.with(this).load(it).into(expandedImage) }
+        Glide.with(this).load(R.drawable.place_holder).into(expandedImage)
 
-        addToCart.setOnClickListener { presenter.putCart(pizza,this) }
+        addToCart.setOnClickListener {
+            presenter.createPizza(pizza,ingredients)
+        }
 
         presenter.getIngredientes()
     }
@@ -65,7 +68,12 @@ class PizzaDetailsActivity : BaseActivity(), PizzaDetailsActivityContract.View, 
 
 
     override fun showSuccess(ingredients: List<Ingredients>) {
+
         onPizzaShow(ingredients)
+    }
+
+    override fun onPizzaCreated(pizza: Pizza) {
+        presenter.putCart(pizza,this)
     }
 
     override fun showProgress(message: String?) {
@@ -73,7 +81,7 @@ class PizzaDetailsActivity : BaseActivity(), PizzaDetailsActivityContract.View, 
         snackbar.show()
     }
 
-    override fun hideProgress() = snackbar.dismissSnackProgress(this@PizzaDetailsActivity)
+    override fun hideProgress() = snackbar.dismissSnackProgress(this@CustomPizzaActivity)
 
 
     override fun onIngrediente(ingredients: Ingredients) {
@@ -109,5 +117,7 @@ class PizzaDetailsActivity : BaseActivity(), PizzaDetailsActivityContract.View, 
         pizza.putIngredientsObj(ingredients.filter { it.id in pizza.ingredients })
 
         addCartText.text = "Add to cart($${pizza.price})"
+
+        this.ingredients = ingredients
     }
 }

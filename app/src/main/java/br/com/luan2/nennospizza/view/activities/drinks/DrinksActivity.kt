@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.luan2.lgutilsk.utils.createSnackProgress
 import br.com.luan2.lgutilsk.utils.dismissSnackProgress
-import br.com.luan2.lgutilsk.utils.showError
-import br.com.luan2.lgutilsk.utils.showMessage
+import br.com.luan2.lgutilsk.utils.showStatusError
+import br.com.luan2.lgutilsk.utils.showStatusMessage
 import br.com.luan2.nennospizza.R
 import br.com.luan2.nennospizza.data.model.Drinks
 import br.com.luan2.nennospizza.view.activities.BaseActivity
@@ -43,7 +43,7 @@ class DrinksActivity : BaseActivity(), DrinksActivityContract.View, OnClickDrink
     }
 
     override fun onError(error: String) {
-        showError(error)
+        showStatusError(error,R.color.red)
     }
 
     override fun showSuccess(drinks: List<Drinks>) {
@@ -64,11 +64,11 @@ class DrinksActivity : BaseActivity(), DrinksActivityContract.View, OnClickDrink
     override fun onDrinkToCart(drinks: Drinks) {
         presenter.putCart(drinks,object :CartActivityContract.Interactor.CartSaveItem{
             override fun onCartItemSave() {
-                showMessage("Adicionado com sucesso!")
+                showStatusMessage("Add com sucesso",R.color.colorAccent)
             }
 
             override fun onCartItemError(error: String) {
-                showError(error)
+                showStatusError(error,R.color.red)
             }
         })
     }

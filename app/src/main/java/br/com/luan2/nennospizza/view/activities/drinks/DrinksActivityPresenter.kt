@@ -32,6 +32,7 @@ class DrinksActivityPresenter(val interactor: DrinksActivityInteractor) : Drinks
                 interactor.getDrinkCache(object : DrinksActivityContract.Interactor.DrinkCacheInfo{
                     override fun onCachetSuccess(drinks: List<Drinks>) {
                         view.showSuccess(drinks)
+                        view.hideProgress()
                     }
 
                     override fun onCacheError(error: String) {

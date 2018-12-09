@@ -6,8 +6,8 @@ import android.view.Menu
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.luan2.lgutilsk.utils.createSnackProgress
 import br.com.luan2.lgutilsk.utils.dismissSnackProgress
-import br.com.luan2.lgutilsk.utils.showError
-import br.com.luan2.lgutilsk.utils.showMessage
+import br.com.luan2.lgutilsk.utils.showStatusError
+import br.com.luan2.lgutilsk.utils.showStatusMessage
 import br.com.luan2.nennospizza.R
 import br.com.luan2.nennospizza.data.model.Cart
 import br.com.luan2.nennospizza.data.model.ItemCart
@@ -50,7 +50,7 @@ class CartActivity : BaseActivity(), CartActivityContract.View, OnCartItem,CartA
     }
 
     override fun onError(error: String) {
-        showError(error)
+        showStatusError(error,R.color.red)
     }
 
     override fun showSuccess(cart: Cart) {
@@ -96,10 +96,11 @@ class CartActivity : BaseActivity(), CartActivityContract.View, OnCartItem,CartA
      * Checkout
      */
     override fun onCheckoutSuccess() {
-        showMessage("Success")
+        showStatusMessage("Checkout realizado com sucesso.",R.color.colorAccent)
+        presenter.getCart()
     }
 
     override fun onCheckoutFailure(error: String) {
-
+        showStatusError(error,R.color.red)
     }
 }

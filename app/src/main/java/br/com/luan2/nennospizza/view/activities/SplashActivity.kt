@@ -2,7 +2,7 @@ package br.com.luan2.nennospizza.view.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import br.com.luan2.lgutilsk.utils.showError
+import br.com.luan2.lgutilsk.utils.showStatusError
 import br.com.luan2.lgutilsk.utils.splashOpen
 import br.com.luan2.lgutilsk.utils.startActivity
 import br.com.luan2.nennospizza.R
@@ -35,14 +35,14 @@ class SplashActivity : AppCompatActivity(), CartActivityContract.Interactor.CarC
             }
 
             override fun onCartInitError(error: String) {
-                showError(error)
+                showStatusError(error,R.color.red)
             }
         })
 
     }
 
     override fun onCartError(error: String) {
-        showError(error)
+        showStatusError(error,R.color.red)
     }
 
 

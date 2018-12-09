@@ -1,19 +1,17 @@
 package br.com.luan2.nennospizza.view.activities.main
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.luan2.lgutilsk.utils.createSnackProgress
 import br.com.luan2.lgutilsk.utils.dismissSnackProgress
-import br.com.luan2.lgutilsk.utils.showError
-import br.com.luan2.lgutilsk.utils.showMessage
+import br.com.luan2.lgutilsk.utils.showStatusError
+import br.com.luan2.lgutilsk.utils.showStatusMessage
 import br.com.luan2.nennospizza.R
 import br.com.luan2.nennospizza.data.model.Pizza
 import br.com.luan2.nennospizza.view.activities.BaseActivity
 import br.com.luan2.nennospizza.view.activities.cart.CartActivityContract
-import br.com.luan2.nennospizza.view.activities.pizzadetails.PizzaDetailsActivity
 import com.example.gitapi.adapter.OnClickPizza
 import com.example.gitapi.adapter.PizzaAdapter
 import com.google.android.material.snackbar.Snackbar
@@ -49,7 +47,7 @@ class MainActivity : BaseActivity(), MainActivityContract.View, OnClickPizza {
     }
 
     override fun onError(error: String) {
-        showError(error)
+        showStatusError(error,R.color.red)
     }
 
     override fun showSuccess(pizzas: List<Pizza>) {
@@ -71,19 +69,17 @@ class MainActivity : BaseActivity(), MainActivityContract.View, OnClickPizza {
     override fun onItemToCart(pizza: Pizza) {
         presenter.putCart(pizza, object : CartActivityContract.Interactor.CartSaveItem {
             override fun onCartItemSave() {
-                showMessage("Item adicionado ao seu carrinho")
+                showStatusMessage("Add com sucesso",R.color.colorAccent)
             }
 
             override fun onCartItemError(error: String) {
-                showError(error)
+                showStatusError(error,R.color.red)
             }
         })
     }
 
     override fun onItemDetails(pizza: Pizza) {
-        val intent = Intent(this@MainActivity, PizzaDetailsActivity::class.java)
-        intent.putExtra("pizza",pizza)
-        startActivity(intent)
+       presenter.openDetails(pizza)
     }
 
 
@@ -93,15 +89,3 @@ class MainActivity : BaseActivity(), MainActivityContract.View, OnClickPizza {
     }
 }
 
-
-//Extension
-fun Activity.getListFromAssets(filename: String): String {
-    val inputStream = assets.open(filename)
-    val size = inputStream.available()
-    val buffer = ByteArray(size)
-    inputStream.read(buffer)
-    inputStream.close()
-
-    return String(buffer)
-
-}

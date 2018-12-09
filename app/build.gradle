@@ -70,13 +70,17 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     implementation 'com.squareup.okhttp3:okhttp:3.4.1'
 
+
+    //Room
     implementation "android.arch.persistence.room:runtime:$archRoomVersion"
     implementation "android.arch.persistence.room:rxjava2:1.1.1"
     kapt "android.arch.persistence.room:compiler:$archRoomVersion"
 
 
-    implementation 'com.github.luangs7:LGUtilsK:V1.5.2'
+    implementation 'com.github.luangs7:LGUtilsK:V1.5.6'
+    implementation 'com.fede987:status-bar-alert:1.0.2'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
+
 
 
     implementation 'com.android.support:appcompat-v7:28.0.0'

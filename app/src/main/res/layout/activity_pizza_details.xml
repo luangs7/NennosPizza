@@ -44,7 +44,7 @@
                     app:layout_collapseMode="pin"
                     app:layout_scrollFlags="scroll|enterAlways"
                     app:navigationIcon="@drawable/ic_left_arrow"
-                    app:titleTextColor="#fff" />
+                    app:titleTextColor="#E14D45" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>

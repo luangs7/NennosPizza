@@ -8,6 +8,8 @@ import br.com.luan2.nennospizza.di.RxThreadModule
 import br.com.luan2.nennospizza.rx.RxThread
 import br.com.luan2.nennospizza.view.activities.cart.CartActivityInteractor
 import br.com.luan2.nennospizza.view.activities.cart.CartActivityPresenter
+import br.com.luan2.nennospizza.view.activities.custompizza.CustomPizzaActivityInteractor
+import br.com.luan2.nennospizza.view.activities.custompizza.CustomPizzaActivityPresenter
 import br.com.luan2.nennospizza.view.activities.drinks.DrinksActivityInteractor
 import br.com.luan2.nennospizza.view.activities.drinks.DrinksActivityPresenter
 import br.com.luan2.nennospizza.view.activities.main.MainActivityInteractor
@@ -34,4 +36,7 @@ val appModule = module {
     single { PizzaDetailsActivityPresenter(get() as PizzaDetailsActivityInteractor) }
     single { PizzaDetailsActivityInteractor(get() as IngredientsRepository, get() as CartRepository) }
 
+    //custom pizza
+    single { CustomPizzaActivityPresenter(get() as CustomPizzaActivityInteractor) }
+    single { CustomPizzaActivityInteractor(get() as IngredientsRepository, get() as CartRepository) }
 }
