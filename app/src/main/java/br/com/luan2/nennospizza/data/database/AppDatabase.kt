@@ -7,7 +7,7 @@ import br.com.luan2.nennospizza.data.model.Cart
 import br.com.luan2.nennospizza.data.model.Drinks
 import br.com.luan2.nennospizza.data.model.Pizza
 
-@Database(entities = [Cart::class, Pizza::class, Drinks::class], version = 1)
+@Database(entities = [Cart::class, Pizza::class, Drinks::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getCartDAO() : CartDao

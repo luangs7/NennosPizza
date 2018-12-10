@@ -47,8 +47,6 @@ class CustomPizzaActivity : BaseActivity(), CustomPizzaActivityContract.View, On
         listIngredientes.apply {
             layoutManager = LinearLayoutManager(this@CustomPizzaActivity).also {
                 it.orientation = RecyclerView.VERTICAL
-                it.isAutoMeasureEnabled = true
-
             }
             setHasFixedSize(true)
         }
