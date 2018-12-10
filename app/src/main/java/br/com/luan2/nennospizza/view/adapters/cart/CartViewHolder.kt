@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.luan2.nennospizza.R
 import br.com.luan2.nennospizza.data.model.ItemCart
+import br.com.luan2.nennospizza.utils.Consts
 import br.com.luan2.nennospizza.view.adapters.cart.OnCartItem
 
 class CartViewHolder(view: View, val context: Context) : RecyclerView.ViewHolder(view) {
@@ -21,7 +22,7 @@ class CartViewHolder(view: View, val context: Context) : RecyclerView.ViewHolder
     fun bind(item: ItemCart, onItemClicked: OnCartItem, position:Int) {
 
         name.text = item.name
-        price.text = "$ ${item.price}"
+        price.text = "$ ${String.format(Consts.numberFormat,item.price)}"
 
         delete.setOnClickListener { onItemClicked.onItemDelete(item,position) }
 

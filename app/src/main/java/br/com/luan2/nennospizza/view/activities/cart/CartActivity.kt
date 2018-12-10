@@ -11,6 +11,7 @@ import br.com.luan2.lgutilsk.utils.startActivity
 import br.com.luan2.nennospizza.R
 import br.com.luan2.nennospizza.data.model.Cart
 import br.com.luan2.nennospizza.data.model.ItemCart
+import br.com.luan2.nennospizza.utils.Consts
 import br.com.luan2.nennospizza.view.activities.BaseActivity
 import br.com.luan2.nennospizza.view.activities.checkout.CheckoutActivity
 import br.com.luan2.nennospizza.view.adapters.cart.OnCartItem
@@ -57,7 +58,7 @@ class CartActivity : BaseActivity(), CartActivityContract.View, OnCartItem,CartA
     override fun showSuccess(cart: Cart) {
         adapter = CartAdapter(cart.items,this,this).also {
             cartList.adapter = it
-            totalLabel.text = "$${cart.totalPrice}"
+            totalLabel.text = "$${String.format(Consts.numberFormat,cart.totalPrice)}"
 
             checkoutButton.setOnClickListener { presenter.doCheckout(cart,this) }
 

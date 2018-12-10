@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.luan2.nennospizza.R
 import br.com.luan2.nennospizza.data.model.Ingredients
+import br.com.luan2.nennospizza.utils.Consts
 
 class IngredienteViewHolder(view: View, val context: Context) : RecyclerView.ViewHolder(view) {
 
@@ -20,7 +21,7 @@ class IngredienteViewHolder(view: View, val context: Context) : RecyclerView.Vie
     fun bind(item: Ingredients, onItemClicked: OnIngredienteClick) {
 
         nameIngrediente.text = item.name
-        price.text = "$ ${item.price}"
+        price.text = "$ ${String.format(Consts.numberFormat,item.price)}"
 
         if(item.isSelected) check.visibility = View.VISIBLE else check.visibility = View.INVISIBLE
 

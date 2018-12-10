@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.luan2.nennospizza.R
 import br.com.luan2.nennospizza.data.model.Drinks
+import br.com.luan2.nennospizza.utils.Consts
 
 class DrinkViewHolder(view: View, val context: Context) : RecyclerView.ViewHolder(view) {
 
@@ -20,7 +21,7 @@ class DrinkViewHolder(view: View, val context: Context) : RecyclerView.ViewHolde
     fun bind(item: Drinks, onItemClicked: OnClickDrink) {
 
         nameDrink.text = item.name
-        price.text = "$ ${item.price}"
+        price.text = "$ ${String.format(Consts.numberFormat,item.price)}"
 
         itemLayout.setOnClickListener { onItemClicked.onDrinkToCart(item) }
 
